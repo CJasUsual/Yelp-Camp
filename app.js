@@ -3,6 +3,7 @@ const   express         = require ("express"),
         bodyParser      = require("body-parser"),
         mongoose        = require("mongoose"),
         flash           = require("connect-flash"),
+        session         = require("express-session"),
         passport        = require("passport"),
         localStrategy   = require("passport-local"),
         methodOverride  = require("method-override"),
@@ -15,8 +16,7 @@ const   commentRoutes   = require("./routes/comments"),
         campgroundRoutes= require("./routes/campgrounds"),
         indexRoutes     = require("./routes/index");
     
-let url                 = process.env.DATABASEURL || "mongodb://localhost:27017/yelp_camp", // fallback in case global var not working
-    sessionSecret       = process.env.LESSOPEN;
+let url                 = process.env.DATABASEURL || "mongodb://localhost:27017/yelp_camp"; // fallback in case global var not working
 
 mongoose.connect(url, { useNewUrlParser: true });//LOCAL DB
 
@@ -29,8 +29,8 @@ app.use(flash());
 // seedDB(); seed DB for test purposes
 
 //PASSPORT CONFIGURATION
-app.use(require("express-session")({
-    secret: sessionSecret,
+app.use(session({
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
 }));
