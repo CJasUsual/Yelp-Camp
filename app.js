@@ -17,7 +17,7 @@ var commentRoutes   = require("./routes/comments"),
 
 //declarations
 // mongoose.connect("mongodb://localhost:27017/yelp_camp", { useNewUrlParser: true });   //LOCAL DB
-mongoose.connect("mongodb://CJ:cjtest11@ds131313.mlab.com:31313/yelp_camp", { useNewUrlParser: true });
+mongoose.connect("mongodb://CJ:cjtest123@ds063946.mlab.com:63946/yelp_camp", { useNewUrlParser: true });
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
