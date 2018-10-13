@@ -14,10 +14,12 @@ var express         = require ("express"),
 var commentRoutes   = require("./routes/comments"),
     campgroundRoutes= require("./routes/campgrounds"),
     indexRoutes     = require("./routes/index");
+    
+var url = process.env.DATABASEURL || "mongodb://localhost:27017/yelp_camp"; // fallback in case global var not working
 
-//declarations
-// mongoose.connect("mongodb://localhost:27017/yelp_camp", { useNewUrlParser: true });   //LOCAL DB
-mongoose.connect("mongodb://CJ:cjtest123@ds063946.mlab.com:63946/yelp_camp", { useNewUrlParser: true });
+mongoose.connect(url, { useNewUrlParser: true });//LOCAL DB
+
+// mongoose.connect("mongodb://CJ:cjtest123@ds063946.mlab.com:63946/yelp_camp", { useNewUrlParser: true }); //LIVE
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -55,4 +57,5 @@ app.use("/campgrounds/:id/comments", commentRoutes);
 
 //SERVER
 app.listen(process.env.PORT, process.env.IP, function(){
+    console.log("Server Started")
 });
