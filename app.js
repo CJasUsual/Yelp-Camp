@@ -1,25 +1,24 @@
-var express         = require ("express"),
-    app             = express(),
-    bodyParser      = require("body-parser"),
-    mongoose        = require("mongoose"),
-    flash           = require("connect-flash"),
-    passport        = require("passport"),
-    localStrategy   = require("passport-local"),
-    methodOverride  = require("method-override"),
-    campground      = require("./models/campground"),
-    comment         = require("./models/comment"),
-    user            = require("./models/user"),
-    seedDB          = require("./seeds");
+const   express         = require ("express"),
+        app             = express(),
+        bodyParser      = require("body-parser"),
+        mongoose        = require("mongoose"),
+        flash           = require("connect-flash"),
+        passport        = require("passport"),
+        localStrategy   = require("passport-local"),
+        methodOverride  = require("method-override"),
+        campground      = require("./models/campground"),
+        comment         = require("./models/comment"),
+        user            = require("./models/user"),
+        seedDB          = require("./seeds");
     
-var commentRoutes   = require("./routes/comments"),
-    campgroundRoutes= require("./routes/campgrounds"),
-    indexRoutes     = require("./routes/index");
+const   commentRoutes   = require("./routes/comments"),
+        campgroundRoutes= require("./routes/campgrounds"),
+        indexRoutes     = require("./routes/index");
     
-var url = process.env.DATABASEURL || "mongodb://localhost:27017/yelp_camp"; // fallback in case global var not working
+let url                 = process.env.DATABASEURL || "mongodb://localhost:27017/yelp_camp", // fallback in case global var not working
+    sessionSecret       = process.env.LESSOPEN;
 
 mongoose.connect(url, { useNewUrlParser: true });//LOCAL DB
-
-// mongoose.connect("mongodb://CJ:cjtest123@ds063946.mlab.com:63946/yelp_camp", { useNewUrlParser: true }); //LIVE
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -31,18 +30,19 @@ app.use(flash());
 
 //PASSPORT CONFIGURATION
 app.use(require("express-session")({
-    secret: "Save trees, save water!",
+    secret: sessionSecret,
     resave: false,
     saveUninitialized: false
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.use(new localStrategy(user.authenticate()));
 passport.serializeUser(user.serializeUser());
 passport.deserializeUser(user.deserializeUser());
 
-//pass data on all pages
+//PASS currentUser ON ALL ROUTES
 app.use(function (req, res, next){
   res.locals.currentUser    = req.user;
   res.locals.error          = req.flash("error");
@@ -50,12 +50,12 @@ app.use(function (req, res, next){
   next();
 });
 
-//ROUTES
+//USE ROUTES
 app.use(indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
-//SERVER
+//SERVER LISTENING
 app.listen(process.env.PORT, process.env.IP, function(){
-    console.log("Server Started")
+    console.log("Server Started");
 });
