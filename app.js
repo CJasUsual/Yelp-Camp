@@ -19,7 +19,7 @@ let commentRoutes   = require("./routes/comments"),
 
 //declarations
 
-mongoose.connect(process.env.databaseURL, { useNewUrlParser: true });
+mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -27,10 +27,10 @@ app.use(methodOverride("_method"));
 app.use(flash());
 
 // seedDB(); seed DB
-
 //PASSPORT CONFIGURATION
+// console.log(process.env.SESSIONSECRET)
 app.use(require("express-session")({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSIONSECRET,
     resave: false,
     saveUninitialized: false
 }));
