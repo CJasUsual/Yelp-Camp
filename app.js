@@ -18,7 +18,7 @@ const   commentRoutes   = require("./routes/comments"),
     
 let url                 = process.env.DATABASEURL || "mongodb://localhost:27017/yelp_camp"; // fallback in case global var not working
 
-mongoose.connect(url, { useNewUrlParser: true });//LOCAL DB
+mongoose.connect(url, { useNewUrlParser: true });//LOCAL Database
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
