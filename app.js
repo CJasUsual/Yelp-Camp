@@ -1,31 +1,36 @@
 require('dotenv').config();
 
-let express         = require ("express"),
-    app             = express(),
-    port            = process.env.PORT || 3000,
-    bodyParser      = require("body-parser"),
-    mongoose        = require("mongoose"),
-    flash           = require("connect-flash"),
-    passport        = require("passport"),
-    localStrategy   = require("passport-local"),
-    methodOverride  = require("method-override"),
-    campground      = require("./models/campground"),
-    comment         = require("./models/comment"),
-    user            = require("./models/user"),
-    seedDB          = require("./seeds");
-    
-let commentRoutes   = require("./routes/comments"),
-    campgroundRoutes= require("./routes/campgrounds"),
-    indexRoutes     = require("./routes/index");
+let express = require("express"),
+  app = express(),
+  bodyParser = require("body-parser"),
+  mongoose = require("mongoose"),
+  flash = require("connect-flash"),
+  passport = require("passport"),
+  localStrategy = require("passport-local"),
+  methodOverride = require("method-override"),
+  campground = require("./models/campground"),
+  comment = require("./models/comment"),
+  user = require("./models/user"),
+  seedDB = require("./seeds");
 
-//declarations
+let commentRoutes = require("./routes/comments"),
+  campgroundRoutes = require("./routes/campgrounds"),
+  indexRoutes = require("./routes/index");
 
-// !Live DB
-// mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
-// ? local DB
-mongoose.connect("mongodb://localhost:27017/yelp_camp", { useNewUrlParser: true });
+const PORT= process.env.PORT || 3000;
 
-app.use(bodyParser.urlencoded({extended: true}));
+  //declarations
+
+  // !Live DB
+  // mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
+  // ? local DB
+  mongoose.connect("mongodb://localhost:27017/yelp_camp", {
+    useNewUrlParser: true
+  });
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
@@ -35,9 +40,9 @@ app.use(flash());
 //PASSPORT CONFIGURATION
 
 app.use(require("express-session")({
-    secret: process.env.SESSIONSECRET,
-    resave: false,
-    saveUninitialized: false
+  secret: process.env.SESSIONSECRET,
+  resave: false,
+  saveUninitialized: false
 }));
 
 // ADDING MOMENT JS
@@ -51,10 +56,10 @@ passport.serializeUser(user.serializeUser());
 passport.deserializeUser(user.deserializeUser());
 
 //pass data on all pages
-app.use(function (req, res, next){
-  res.locals.currentUser    = req.user;
-  res.locals.error          = req.flash("error");
-  res.locals.success        = req.flash("success");
+app.use(function (req, res, next) {
+  res.locals.currentUser = req.user;
+  res.locals.error = req.flash("error");
+  res.locals.success = req.flash("success");
   next();
 });
 
@@ -64,6 +69,6 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
 //SERVER
-app.listen(port, function(){
-    console.log("The Yelpcamp Server Has Started");
+app.listen(PORT, function () {
+  console.log("The Yelpcamp Server Has Started");
 });
