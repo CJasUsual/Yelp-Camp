@@ -12,7 +12,7 @@ let express = require("express"),
   comment = require("./models/comment"),
   user = require("./models/user"),
   seedDB = require("./seeds");
-
+ 
 let commentRoutes = require("./routes/comments"),
   campgroundRoutes = require("./routes/campgrounds"),
   indexRoutes = require("./routes/index");

@@ -19,7 +19,11 @@ router.get("/register", function (req, res) {
 // handle sign up logic
 router.post("/register", function (req, res) {
     var newUser = new user({
-        username: req.body.username
+        username: req.body.username,
+        firstname: req.body.firstName,
+        lastname: req.body.lastName,
+        email: req.body.email,
+        avatar: req.body.avatar
     });
 
     if(req.body.adminCode === process.env.ADMINCODE){
@@ -45,12 +49,24 @@ router.get("/login", function (req, res) {
     });
 });
 
+//handle login logic
 router.post("/login", passport.authenticate("local", {
     successRedirect: "/campgrounds",
     failureRedirect: "/login",
 
     failureFlash: true
 }), function (req, res) {});
+
+//User Profile Route
+router.get("/users/:id", function(req, res){
+    user.findById(req.params.id, function(err, foundUser){
+        if(err){
+            req.flash("error", "We couldn't find that");
+            res.redirect("/campgrounds");
+        }
+        res.render("users/show", {user: foundUser});
+    })
+})
 
 //logout route
 router.get("/logout", function (req, res) {

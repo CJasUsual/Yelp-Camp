@@ -1,0 +1,49 @@
+<% include ../partials/header %>
+
+<!-- ! START HERE -->
+
+<!-- Converts the first letter in the string to Uppercase -->
+
+<div class="row">
+    <div class="col-md-3">
+
+    </div>
+
+    <div class="col-md-6">
+        <div class="card text-white bg-dark">
+            <img class="card-img-top" src="<%= user.avatar %>" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <h1><%= user.username.charAt(0).toUpperCase() + user.username.slice(1); %></h1>
+                </h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's
+                    content.</p>
+            </div>
+            <ul class="list-group list-group-flush text-muted">
+                <li class="list-group-item">
+                    <label for="Name">Name</label>
+                    <%= user.firstname %> <%= user.lastname %>
+                </li>
+                <li class="list-group-item">
+                        <label for="email">Email</label>
+                    <%= user.email %>
+                </li>
+                <li class="list-group-item">
+                        <label for="username">Username</label>
+                    at eros
+                </li>
+            </ul>
+            <div class="card-body text-light bg-light">
+                <a href="/campgrounds/" class="card-link">Go Back</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+
+    </div>
+</div>
+
+
+
+<% include ../partials/footer %>
