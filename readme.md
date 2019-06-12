@@ -115,9 +115,6 @@ Each Campground has:
 * Add Edit button
 * Add Update route
 
-<!--/campgrounds/:id/edit-->
-<!--/campgrounds/:id/comments/:comment_id/edit-->
-
 #Deleting Comments
 * Add Destroy route
 * Add Delete button
@@ -134,6 +131,9 @@ Each Campground has:
 * Add bootstrap alerts to header
 
 
+## NEW FEATURES !
 ============================================
-Dynamic Pricing added
-Landing Page styled with Slideshow images
+* Dynamic Pricing added
+* Refactored Login and Sign Up UI
+* Added Google Maps to Show Routes
+* Added Admin Privileges

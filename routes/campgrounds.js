@@ -84,6 +84,7 @@ router.put("/:id", middleware.checkCampgroundOwnership, function (req, res) {
 router.delete("/:id", middleware.checkCampgroundOwnership, function (req, res) {
     campground.findByIdAndRemove(req.params.id, function (err) {
         if (err) {
+            req.flash("error", "Campground Deleted!");
             res.redirect("/campgrounds");
         } else {
             res.redirect("/campgrounds");
