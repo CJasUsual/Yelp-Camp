@@ -136,4 +136,5 @@ Each Campground has:
 * Dynamic Pricing added
 * Refactored Login and Sign Up UI
 * Added Google Maps to Show Routes
-* Added Admin Privileges
+* Added Admin Privileges  -- fix soon
+* Added User Profiles
