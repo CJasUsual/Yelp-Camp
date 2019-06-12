@@ -1,7 +1,8 @@
-var express = require("express"),
-    router = express.Router(),
-    passport = require("passport"),
-    user = require("../models/user");
+var express     = require("express"),
+    router      = express.Router(),
+    passport    = require("passport"),
+    user        = require("../models/user"),
+    campground  = require("../models/campground");
 
 
 
@@ -64,7 +65,13 @@ router.get("/users/:id", function(req, res){
             req.flash("error", "We couldn't find that");
             res.redirect("/campgrounds");
         }
-        res.render("users/show", {user: foundUser});
+        campground.find().where("author.id").equals(foundUser._id).exec(function(err, campgrounds){
+            if(err){
+                req.flash("error", "We couldn't find that");
+                res.redirect("/campgrounds");
+            }
+            res.render("users/show", {user: foundUser, campground: campgrounds});
+        })
     })
 })
 

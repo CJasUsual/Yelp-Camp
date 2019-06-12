@@ -1,46 +1,60 @@
 <% include ../partials/header %>
 
-<!-- ! START HERE -->
 
-<!-- Converts the first letter in the string to Uppercase -->
 
 <div class="row">
-    <div class="col-md-3">
 
-    </div>
-
-    <div class="col-md-6">
-        <div class="card text-white bg-dark">
-            <img class="card-img-top" src="<%= user.avatar %>" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">
-                    <h1><%= user.username.charAt(0).toUpperCase() + user.username.slice(1); %></h1>
-                </h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's
-                    content.</p>
+    <div class="card col-md-8">
+        <div class="row ">
+            <div class="col-sm-5">
+                <img class="d-block w-100 rounded-circle" src="<%= user.avatar %>" alt="<%= user.username %>'s avatar">
             </div>
-            <ul class="list-group list-group-flush text-muted">
-                <li class="list-group-item">
-                    <label for="Name">Name</label>
-                    <%= user.firstname %> <%= user.lastname %>
-                </li>
-                <li class="list-group-item">
-                        <label for="email">Email</label>
-                    <%= user.email %>
-                </li>
-                <li class="list-group-item">
-                        <label for="username">Username</label>
-                    at eros
-                </li>
-            </ul>
-            <div class="card-body text-light bg-light">
-                <a href="/campgrounds/" class="card-link">Go Back</a>
+            <div class="col-sm-1">
+
+            </div>
+            <div class="col-sm-6">
+                <div class="card-block">
+                    <h4 class="card-title"><%= user.username %></h4>
+                    <ul class="list-group list-group-flush text-muted">
+                        <li class="list-group-item">
+                            <%= user.firstname.charAt(0).toUpperCase() + user.firstname.slice(1) %>
+                            <%= user.lastname.charAt(0).toUpperCase() + user.lastname.slice(1) %>
+                        </li>
+                        <li class="list-group-item">
+                            Bacon ipsum dolor amet hamburger spare ribs boudin prosciutto
+                            kielbasa shankle. Kielbasa jerky short loin, alcatra pork.
+                        </li>
+                        <li class="list-group-item">
+                            <a href="mailto:<%= user.email %>">
+                                <%= user.email %>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-3">
 
+
+    <div class="col-md-4">
+        <div class="card text-white bg-primary">
+            <div class="card-header">
+                <h5 class="card-title">
+                    <%= user.username %>'s campgrounds
+                </h5>
+            </div>
+            <div class="card-body text-dark bg-light">
+                <div class="card-text">
+                    <% campground.forEach(function(campground) { %>
+                    <p> <a href="/campgrounds/<%= campground.id %>"><%= campground.name %></a>
+                        <span class="float-right">$<%= campground.price %>/night</span></p>
+                    <% }) %>
+                </div>
+            </div>
+            <div class="card-footer bg-light">
+                <a href="/campgrounds/" class="card-link">Go Back</a>
+            </div>
+        </div>
     </div>
 </div>
 
