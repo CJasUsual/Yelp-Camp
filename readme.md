@@ -138,3 +138,4 @@ Each Campground has:
 * Added Google Maps to Show Routes
 * Added Admin Privileges  -- fix soon
 * Added User Profiles
+* Added Password Reset
