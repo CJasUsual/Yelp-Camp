@@ -15,16 +15,23 @@ var geocoder = NodeGeocoder(options);
 
 //INDEX - Show All Campgrounds
 router.get("/", function (req, res) {
+    let noMatch = null;
     if (req.query.search) {
         const regex = new RegExp(escapeRegex(req.query.search), 'gi');
         // Get all campgrounds from DB
-        campground.find({name: regex}, function (err, allCampgrounds) {
+        campground.find({
+            name: regex
+        }, function (err, allCampgrounds) {
             if (err) {
-                console.log(err);
+                req.flash('error', 'An error occurred');
             } else {
+                if (allCampgrounds.length < 1) {
+                    noMatch = "No campgrounds match that query";
+                }
                 res.render("campgrounds/index", {
                     campgrounds: allCampgrounds,
-                    page: 'campgrounds'
+                    page: 'campgrounds',
+                    noMatch: noMatch
                 });
             }
         });
@@ -36,7 +43,8 @@ router.get("/", function (req, res) {
             } else {
                 res.render("campgrounds/index", {
                     campgrounds: allCampgrounds,
-                    page: 'campgrounds'
+                    page: 'campgrounds',
+                    noMatch: noMatch
                 });
             }
         });
