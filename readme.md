@@ -140,3 +140,4 @@ Each Campground has:
 * Added User Profiles
 * Added Password Reset
 * Added Fuzzy Search
+* Added Image Upload Feature
