@@ -139,3 +139,4 @@ Each Campground has:
 * Added Admin Privileges  -- fix soon
 * Added User Profiles
 * Added Password Reset
+* Added Fuzzy Search
