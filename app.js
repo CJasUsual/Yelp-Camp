@@ -22,11 +22,11 @@ const PORT = process.env.PORT || 3000;
 //declarations
 
 // !Live DB
-mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
+// mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
 // ? local DB
-// mongoose.connect("mongodb://localhost:27017/yelp_camp", {
-//   useNewUrlParser: true
-// });
+mongoose.connect("mongodb://localhost:27017/yelp_camp", {
+  useNewUrlParser: true
+});
 
 app.use(bodyParser.urlencoded({
   extended: true
